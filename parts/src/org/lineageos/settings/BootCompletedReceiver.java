@@ -28,6 +28,7 @@ import android.util.Log;
 import androidx.preference.PreferenceManager;
 
 import org.lineageos.settings.dirac.DiracUtils;
+import org.lineageos.settings.dolby.DolbyUtils;
 import org.lineageos.settings.thermal.ThermalUtils;
 import org.lineageos.settings.refreshrate.RefreshUtils;
 import org.lineageos.settings.utils.FileUtils;
@@ -51,6 +52,9 @@ public class BootCompletedReceiver extends BroadcastReceiver {
         }
         ThermalUtils.startService(context);
         RefreshUtils.startService(context);
+
+        // Dolby Atmos
+        DolbyUtils.getInstance(context).onBootCompleted();
 
         boolean dcDimmingEnabled = sharedPrefs.getBoolean(DC_DIMMING_ENABLE_KEY, false);
         FileUtils.writeLine(DC_DIMMING_NODE, dcDimmingEnabled ? "1" : "0");
